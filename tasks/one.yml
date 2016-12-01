@@ -1,0 +1,43 @@
+---
+# tasks file for postgresql
+
+- name: Ensure PostgreSQL role path is available
+  file:
+    path: "{{ postgresql_path }}"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+  tags:
+    - init
+
+- name: Ensure PostgreSQL data path is available
+  file:
+    path: "{{ postgresql_data_path }}"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+  tags:
+    - init
+
+- name: Ensure PostgreSQL config path is available
+  file:
+    path: "{{ postgresql_config_path }}"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+  tags:
+    - init
+
+- name: Ensure PostgreSQL logs path is available
+  file:
+    path: "{{ postgresql_logs_path }}"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+  tags:
+    - init
+    

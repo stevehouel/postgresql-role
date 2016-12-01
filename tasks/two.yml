@@ -1,0 +1,23 @@
+---
+# tasks file for postgresql
+
+
+- name: Check if there are postgresql.conf file to copy
+  local_action: stat path={{ inventory_dir }}/conf-postgresql/postgresql.conf
+  register: postgresql_conf_file
+  ignore_errors: True
+
+- name: Copy specific postgresql.conf file if found, else, keep the default one
+  set_fact:
+    conf_file_location: "{% if postgresql_conf_file.stat.exists %}{{ inventory_dir }}/conf-postgresql/postgresql.conf{% else %}files/postgresql.conf{% endif %}"
+
+- name: Ensure PostgreSQL configuration file is up-to-date
+  template:
+    backup: "yes"
+    src: "{{ conf_file_location }}"
+    dest: "{{ postgresql_config_path }}/postgresql.conf"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  tags:
+    - init
