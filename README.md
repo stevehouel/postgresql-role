@@ -1,4 +1,4 @@
-# Posgresql Creation playbook #
+# Posgresql Creation role #
 
 
 ## Requirements

@@ -4,7 +4,7 @@
 - name: Ensure PostgreSQL container has an up-to-date configuration
   docker:
     name: "{{ postgresql_container_name }}"
-    image: "{{ athena_registry_url }}/postgresql:{{ postgresql_version }}"
+    image: "postgresql:{{ postgresql_version }}"
     state: "reloaded"
     pull: always
     ports:
@@ -51,7 +51,7 @@
   when: ansible_os_family == "Debian"
   tags:
     - docker
-    
+
 - name: Waiting for PostgreSQL container accepts connection (CentOS)
   shell: x="99"; while [ "$x" != "0" ]; do var=`ncat {{ ansible_host }} {{ postgresql_port }} </dev/null >/dev/null`;x=`echo $?`;sleep 1; done
   when: ansible_os_family == "RedHat"
